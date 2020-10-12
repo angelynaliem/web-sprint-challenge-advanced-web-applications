@@ -1,15 +1,30 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import BubblePage from "./BubblePage";
+import Login from "./Login";
+import App from "../App";
 import ColorList from "./ColorList";
+// import ColorList from "./ColorList";
 
-test("Fetches data and renders the bubbles", () => {
+// import { axiosWithAuth } from "../util/axiosWithAuth";
+
+// import { fetchColors as mockFetchColors } from "../api/fetchColors";
+
+// jest.mock("../api/fetchColors");
+
+test("Fetches data and renders the bubbles", 
+// async 
+() => {
   // Finish this test
 
-  //Arramge
+  // mockFetchColors.mockResolvedValueOnce(colors);
+
+  //Arrange
+  // const {getByRole, findByText, getAllByTestId } = render(<App />);
+  // const button = getByRole("button", {name: /log in/i});
   const { queryAllByTestId, getAllByTestId, findAllByTestId, rerender } = render(<ColorList colors={[]} />)
 
-  screen.debug()
+  // screen.debug()
 
   //Sanity Check
   const initialColorList = queryAllByTestId(/color/i)
@@ -17,16 +32,18 @@ test("Fetches data and renders the bubbles", () => {
   expect(initialColorList).toHaveLength(0)
 
   //Act
+  // fireEvent.click(button);
   rerender(<ColorList colors={colors} />)
 
   // expect(findAllByTestId(/color/i)).toHaveLength(10)
 
   const fetchedColorList = findAllByTestId(/color/i)
-  console.log("Fetched Color List: ", fetchedColorList)
+  // console.log("Fetched Color List: ", fetchedColorList)
 
   //Assert 
-  // expect(fetchedColorList).toHaveLength(10)
-
+  // await waitFor(() => {
+  //   expect(getAllByTestId(/color/i)).toHaveLength(10)
+  // })
 
 });
 

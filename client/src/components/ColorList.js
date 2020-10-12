@@ -10,7 +10,7 @@ const initialColor = {
 };
 
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors, updateColors, fetchColors }) => {
 
   // const { push } = useHistory();
   // const { id } = useParams();
@@ -32,11 +32,12 @@ const ColorList = ({ colors, updateColors }) => {
     // think about where will you get the id from...
     // where is is saved right now?
     axiosWithAuth()
-    // .put(`/colors/${id}`, colorToEdit)
+    .put(`/colors/${colorToEdit.id}`, colorToEdit)
     .then((res) => {
       console.log("ColorList PUT Res is: ", res)
       // setColorToEdit(res.data)
-      updateColors(res.data)
+      // updateColors(res.data)
+      fetchColors()
       // push("/protected")
       
     })
@@ -50,10 +51,11 @@ const ColorList = ({ colors, updateColors }) => {
     // color.preventDefault()
     // make a delete request to delete this color
     axiosWithAuth()
-    // .delete(`/colors/${id}`)
+    .delete(`/colors/${color.id}`)
     .then((res) => {
       console.log("DELETE Res is: ", res)
-      updateColors(res.data)
+      // updateColors(res.data)
+      fetchColors()
       // push("/protected")
     })
     .catch((err) => {

@@ -10,9 +10,9 @@ const initialLoginForm = {
 
 }
 
-const Login = () => {
+const Login = (props) => {
 
-  const { push } = useHistory();
+  // const { push } = useHistory();
 
   const [login, setLogin] = useState(initialLoginForm);
   // make a post request to retrieve a token from the api
@@ -29,7 +29,7 @@ const Login = () => {
     .then((res) => {
         console.log("Login Res is: ", res)
         localStorage.setItem("token", res.data.payload)
-        push("/protected")
+        props.history.push("/protected")
     })
     .catch((err) => {
       console.log("Login Err is: ", err)
