@@ -9,17 +9,18 @@ const initialColor = {
   id: "",
 };
 
+
 const ColorList = ({ colors, updateColors }) => {
+
+  // const { push } = useHistory();
+  // const { id } = useParams();
   
   console.log("COLORS: ", colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
-  const { id } = useParams();
-  const { push } = useHistory();
-
   const editColor = color => {
-    push(`/protected/${color.id}`)
+    // push(`/protected/${color.id}`)
     setEditing(true);
     setColorToEdit(color);
     
@@ -31,12 +32,12 @@ const ColorList = ({ colors, updateColors }) => {
     // think about where will you get the id from...
     // where is is saved right now?
     axiosWithAuth()
-    .put(`/colors/${id}`, colorToEdit)
+    // .put(`/colors/${id}`, colorToEdit)
     .then((res) => {
       console.log("ColorList PUT Res is: ", res)
       // setColorToEdit(res.data)
       updateColors(res.data)
-      push("/protected")
+      // push("/protected")
       
     })
     .catch((err) => {
@@ -49,11 +50,11 @@ const ColorList = ({ colors, updateColors }) => {
     // color.preventDefault()
     // make a delete request to delete this color
     axiosWithAuth()
-    .delete(`/colors/${id}`)
+    // .delete(`/colors/${id}`)
     .then((res) => {
       console.log("DELETE Res is: ", res)
       updateColors(res.data)
-      push("/protected")
+      // push("/protected")
     })
     .catch((err) => {
       console.log("DELETE Err is: ", err)
@@ -66,7 +67,7 @@ const ColorList = ({ colors, updateColors }) => {
       <ul>
         {colors.map(color => (
         
-          <li key={color.color} onClick={() => editColor(color)}>
+          <li key={color.color} onClick={() => editColor(color)} data-testid="color">
             <span>
               <span className="delete" onClick={e => {
                     e.stopPropagation();
