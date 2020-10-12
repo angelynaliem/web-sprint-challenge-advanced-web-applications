@@ -28,9 +28,22 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Explain what a token is used for.
+
+A token is a credential format that provides authorization and authentication so that we can transfer information securely between a client app and a web server. 
+
 2. What steps can you take in your web apps to keep your data secure?
+
+Web apps are to have private routes that can only be accessed by a client that has the token. Token should be saved securely, preferably not in local storage. Database, passwords, tokens, and any sensitive information should be encrypted, and the database should be stored via API instead of just listed in the back end file, e.g. server.js. 
+
 3. Describe how web servers work.
-4. Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+For modern web server, the functionality of the server is mainly to give database access to the client side. We can interact with the server by using the CRUD method (Create, Read, Update, and Delete). 
+
+4. Which HTTP methods can be mapped to the CRUD acronym that we use when
+interfacing with APIs/Servers.
+
+GET (to get the database information), POST (to login and to add something to the database), PUT (to update existing database), and DELETE (to remove something from the database).
+
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade. 
 
