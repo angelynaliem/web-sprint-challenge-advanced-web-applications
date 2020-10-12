@@ -29,7 +29,7 @@ const Login = () => {
     .then((res) => {
         console.log("Login Res is: ", res)
         localStorage.setItem("token", res.data.payload)
-        // push("/protected")
+        push("/protected")
     })
     .catch((err) => {
       console.log("Login Err is: ", err)
