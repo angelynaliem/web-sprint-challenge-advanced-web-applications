@@ -19,6 +19,7 @@ function App() {
           display BubblePage when you're authenticated 
         */}
         <PrivateRoute exact path="/protected" component={BubblePage} />
+        <Route path="/protected/:id" component={BubblePage} />
         <Route component={Login} />
         </Switch>
       </div>

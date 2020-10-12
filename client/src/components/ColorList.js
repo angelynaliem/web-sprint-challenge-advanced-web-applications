@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { axiosWithAuth } from "../util/axiosWithAuth";
+
+import { useParams, useHistory, NavLink } from "react-router-dom";
 
 const initialColor = {
   color: "",
@@ -7,9 +10,13 @@ const initialColor = {
 };
 
 const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+  
+  console.log("COLORS: ", colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
+
+  const { id } = useParams();
+  const { push } = useHistory();
 
   const editColor = color => {
     setEditing(true);
@@ -21,6 +28,19 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+    .put(`/colors/${id}`, colorToEdit)
+    .then((res) => {
+      console.log("ColorList PUT Res is: ", res)
+      // setColorToEdit(res.data)
+      updateColors(res.data)
+      // push("/protected")
+      
+    })
+    .catch((err) => {
+      console.log("ColorList PUT Err is: ", err)
+    })
+
   };
 
   const deleteColor = color => {
@@ -32,6 +52,7 @@ const ColorList = ({ colors, updateColors }) => {
       <p>colors</p>
       <ul>
         {colors.map(color => (
+                <NavLink exact to={`/protected/${color.id}`}>
           <li key={color.color} onClick={() => editColor(color)}>
             <span>
               <span className="delete" onClick={e => {
@@ -48,6 +69,7 @@ const ColorList = ({ colors, updateColors }) => {
               style={{ backgroundColor: color.code.hex }}
             />
           </li>
+          </NavLink>
         ))}
       </ul>
       {editing && (
