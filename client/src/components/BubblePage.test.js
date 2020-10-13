@@ -37,7 +37,7 @@ async () => {
   // expect(findAllByTestId(/color/i)).toHaveLength(10)
 
   const fetchedColorList = findAllByTestId(/color/i)
-  console.log("Fetched Color List: ", fetchedColorList)
+  // console.log("Fetched Color List: ", fetchedColorList)
 
   //Assert 
   await waitFor(() => {
