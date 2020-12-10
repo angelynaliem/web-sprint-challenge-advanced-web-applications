@@ -1,19 +1,29 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { axiosWithAuth } from "../util/axiosWithAuth";
+
+import { useParams, useHistory, NavLink } from "react-router-dom";
 
 const initialColor = {
   color: "",
-  code: { hex: "" }
+  code: { hex: "" },
+  id: "",
 };
 
-const ColorList = ({ colors, updateColors }) => {
-  console.log(colors);
+
+const ColorList = ({ colors, updateColors, fetchColors }) => {
+
+  // const { push } = useHistory();
+  // const { id } = useParams();
+  
+  console.log("COLORS: ", colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
   const editColor = color => {
+    // push(`/protected/${color.id}`)
     setEditing(true);
     setColorToEdit(color);
+    
   };
 
   const saveEdit = e => {
@@ -21,10 +31,36 @@ const ColorList = ({ colors, updateColors }) => {
     // Make a put request to save your updated color
     // think about where will you get the id from...
     // where is is saved right now?
+    axiosWithAuth()
+    .put(`/colors/${colorToEdit.id}`, colorToEdit)
+    .then((res) => {
+      console.log("ColorList PUT Res is: ", res)
+      // setColorToEdit(res.data)
+      // updateColors(res.data)
+      fetchColors()
+      // push("/protected")
+      
+    })
+    .catch((err) => {
+      console.log("ColorList PUT Err is: ", err)
+    })
+
   };
 
   const deleteColor = color => {
+    // color.preventDefault()
     // make a delete request to delete this color
+    axiosWithAuth()
+    .delete(`/colors/${color.id}`)
+    .then((res) => {
+      console.log("DELETE Res is: ", res)
+      // updateColors(res.data)
+      fetchColors()
+      // push("/protected")
+    })
+    .catch((err) => {
+      console.log("DELETE Err is: ", err)
+    })
   };
 
   return (
@@ -32,7 +68,10 @@ const ColorList = ({ colors, updateColors }) => {
       <p>colors</p>
       <ul>
         {colors.map(color => (
-          <li key={color.color} onClick={() => editColor(color)}>
+        
+          <li key={color.color} onClick={() => editColor(color)} 
+          data-testid="color"
+          >
             <span>
               <span className="delete" onClick={e => {
                     e.stopPropagation();
